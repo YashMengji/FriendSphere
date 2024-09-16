@@ -5,6 +5,8 @@ import App from './App.jsx'
 import Register from '../components/Register.jsx'
 import Login from '../components/Login.jsx'
 import UserContext from '../contexts/UserContext.jsx'
+import Home from '../components/Home.jsx'
+import ProtectedRoute from '../components/ProtectedRoute.jsx'
 
 const createRouter = createBrowserRouter(
   [
@@ -14,15 +16,20 @@ const createRouter = createBrowserRouter(
       children: [ 
         {
           path: "/register", 
-          element:
-          <UserContext>
-            <Register/>
-          </UserContext>
+          element:<Register/>
         }, 
         {
           path: "/login", 
           element: <Login/>
         }, 
+        {
+          path: '/home',
+          element: (
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          ),
+        },
       ]
     }
   ]

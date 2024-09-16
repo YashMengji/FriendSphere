@@ -71,6 +71,7 @@
 }
 .div-register-error{
   color: rgb(236, 0, 0);
+  font-weight: 500;
 }
 .register-btn{
   color: white;

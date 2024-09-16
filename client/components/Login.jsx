@@ -1,21 +1,27 @@
 import React, { useState } from 'react'
 import { useAsyncFn } from '../hooks/useAsync';
 import { checkUser } from '../services/users';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate hook
+
 
 function Login() {
 
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
 
   const checkUserFn = useAsyncFn(checkUser);
+  const navigate = useNavigate(); // Initialize navigate
 
   function onUserLogin(e){
     e.preventDefault(); // Prevent default form submission
     checkUserFn.execute({username, password})
     .then(user => {
-      console.log(user)
       setUsername("");
       setPassword("");
+      if (user) {
+        // Navigate to /home on successful login
+        navigate("/home");
+      }
     })
   }
   
@@ -31,8 +37,8 @@ function Login() {
         <form onSubmit={onUserLogin} className='login-form'>
           <input required value={username} onChange={e => setUsername(e.target.value)} type="text" className="username-input" placeholder="Username"/>
           <input required value={password} onChange={e => setPassword(e.target.value)} type="password" className="password-input" placeholder="Password"/>
-          <a href="/register" className="register-link">New Here? Register</a>
-          <button disabled={checkUserFn.loading} className="login-btn">Login</button>
+          <Link to="/register" className="register-link">New Here? Register</Link>
+          <button disabled={checkUserFn.loading} type='submit' className="login-btn">Login</button>
           {checkUserFn.error && (
             <div className="div-login-error">
               {checkUserFn.error}

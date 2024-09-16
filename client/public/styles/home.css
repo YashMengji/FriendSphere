@@ -1,0 +1,6 @@
+.home-div{
+  width: 50%;
+  height: 100vh;
+  background-color: var(--back-light-color);
+  margin-top: 57px;
+}

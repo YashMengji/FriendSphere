@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
@@ -14,9 +15,9 @@ function Navbar() {
       </div>
       <div className="div-nav-middle">
         <div className="div-home">  
-          <a className="section-link" href="/">
+          <Link className="section-link" to="/home">
             <i className="fa-solid fa-house fa-xl"></i>
-          </a>
+          </Link>
         </div>
         <input className="search-bar" type="text" placeholder="Search"/>
         <button className="search-icon-button">
@@ -28,11 +29,11 @@ function Navbar() {
           <i className="fas fa-bell fa-xl"></i>
         </div>
         <div className="div-profile">
-          <a href="/login" className="login-btn-link">
+          <Link to="/login" className="login-btn-link">
             <button className="sign-in-btn">
               Sign In
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
