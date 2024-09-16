@@ -6,3 +6,10 @@ export function createUser({fname, lname, username, password, email}){
     data: {fname, lname, username, password, email},
   })
 }
+
+export function checkUser({username, password}){
+  return makeRequests(`/login`, {
+    method: "POST",
+    data: {username, password},
+  })
+}

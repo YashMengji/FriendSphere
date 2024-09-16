@@ -47,6 +47,12 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.get("/login", async (req, res) => {
+
+});
+
+
+
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server is running on ${process.env.PORT}`);
 });

@@ -12,7 +12,8 @@ function UserContext({ children }) {
   const [users, setUsers] = useState([])
 
   function createLocalUser(user) {
-    setUsers(prevUsers => [user, ...prevUsers]);  
+    setUsers(prevUsers => [user, ...prevUsers]); 
+    console.log(users);
   }
 
   return (

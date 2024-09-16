@@ -14,7 +14,10 @@ const createRouter = createBrowserRouter(
       children: [ 
         {
           path: "/register", 
-          element: <Register/>
+          element:
+          <UserContext>
+            <Register/>
+          </UserContext>
         }, 
         {
           path: "/login", 

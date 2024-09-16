@@ -12,7 +12,7 @@ function Register() {
   const [email, setEmail] = useState("");
 
   const createUserFn = useAsyncFn(createUser);
-  // const {createLocalUser} = useUser();
+  const {createLocalUser} = useUser();
 
   function onUserRegister(e){
     e.preventDefault(); // Prevent default form submission
@@ -24,7 +24,7 @@ function Register() {
       setUsername("");
       setPassword("");
       setEmail("");
-      // createLocalUser(user);
+      createLocalUser(user);
     })
   }
   
