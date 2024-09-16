@@ -1,6 +1,30 @@
 .home-div{
+  background-color: var(--back-light-color);
   width: 50%;
   height: 100vh;
-  background-color: var(--back-light-color);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
   margin-top: 57px;
+}
+
+.user-div{
+  display: grid;
+  grid-template-columns: 80px 1fr 60px;
+  background-color: var(--dark-color);
+  width: 90%;
+  height: 85px;
+  border-radius: 12px;
+  padding: 10px;
+}
+.div-profile-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
 }
