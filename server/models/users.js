@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-mongoose.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`);
+// mongoose.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`);
+mongoose.connect("mongodb+srv://yash:Yash123@cluster0.jia8s2u.mongodb.net/friend_sphere?retryWrites=true&w=majority&appName=Cluster0");
 
 const userSchema = mongoose.Schema({
   fname: {
@@ -26,17 +27,6 @@ const userSchema = mongoose.Schema({
     type: String, 
     required: true 
   }, // Store hashed password
-  profileImg: {
-    filename: {
-      type: String,
-    },
-    contentType: {
-      type: String, 
-    },
-    data: {
-      type: Buffer,
-    },
-  },
   friends: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User' 

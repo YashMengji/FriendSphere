@@ -51,7 +51,7 @@
   border: 1px solid rgba(163, 163, 163, 0.87);
   border-radius: 3px;
   padding-left: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .div-username-input{
   width: 100%;
@@ -69,6 +69,9 @@
   padding-left: 15px;
   margin-bottom: 20px;
 }
+.div-register-error{
+  color: rgb(236, 0, 0);
+}
 .register-btn{
   color: white;
   background-color: var(--dark-color);
@@ -78,6 +81,6 @@
   height: 40px;
   font-size: 16px;
   font-weight: 700;
-  margin-top: 30px;
+  margin-top: 20px;
   cursor: pointer;
 }
