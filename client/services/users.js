@@ -40,3 +40,9 @@ export function rejectRequest({senderId}){
     data: {senderId},
   })
 }
+
+export function onLogout(){
+  return makeRequests(`/logout`, {
+    method: "GET",
+  })
+}

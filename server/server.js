@@ -144,6 +144,11 @@ app.post("/rejectRequest", isLoggedIn, async (req, res) => {
   }
 });
 
+app.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.send(true);
+});
+
 function isLoggedIn(req, res, next) {
   const signData = jwt.verify(req.cookies.token, process.env.ENCRYPT_STRING);
   req.signData = signData;

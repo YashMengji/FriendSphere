@@ -163,6 +163,16 @@
   background-color: var(--dark-color);
   border: 2px solid #F4BB44;
 }
+.profile-btn-link {
+  text-decoration: none;
+}
+.profile-btn {
+  background-color: var(--dark-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  
+}
 
 @media (max-width: 1100px) {
   .div-nav-name{

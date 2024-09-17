@@ -5,8 +5,9 @@ import { useUser } from '../contexts/UserContext'
 
 function Home() {
 
-  const {users, dToken} = useUser();
+  const {users, setUsers, dToken, search} = useUser();
   const [friends, setFriends] = useState([]);
+  const [searchUsers, setSearchUsers] = useState([]);
   const [friendRequestsSent, setFriendRequestsSent] = useState([]);
   console.log(users);
 
@@ -17,6 +18,15 @@ function Home() {
       setFriendRequestsSent(currentUser.friendRequestsSent || []);
     }
   }, [users, dToken]); // Run this effect when users or dToken changes
+
+  useEffect(() => {
+    if(search){
+      const searchResults = users.filter(user => user.fname.toLowerCase().includes(search.toLowerCase()) || user.lname.toLowerCase().includes(search.toLowerCase()) || user.username.toLowerCase().includes(search.toLowerCase()));
+      setUsers(searchResults);
+    }
+  }, [search]);
+
+
 
 
   return (

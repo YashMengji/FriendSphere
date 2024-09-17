@@ -15,6 +15,7 @@ function UserContext({ children }) {
 
   const [users, setUsers] = useState([])
   const [dToken, setDToken] = useState({});
+  const [search, setSearch] = useState('');
   const {loading, error, value} = useAsync(getUser);
 
   useEffect(() => {
@@ -41,6 +42,9 @@ function UserContext({ children }) {
         createLocalUser,
         users,
         dToken,
+        search,
+        setSearch,
+        setUsers,
       }
     }
     >

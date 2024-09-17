@@ -23,8 +23,6 @@ function App(){
     <>   
       <UserContext>
         <Navbar/>
-      </UserContext>
-      <UserContext>
         <Outlet/>
       </UserContext>
     </>

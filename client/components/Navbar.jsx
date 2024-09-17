@@ -2,13 +2,25 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useUser } from '../contexts/UserContext'
+import { useAsync, useAsyncFn } from '../hooks/useAsync';
+import { useNavigate } from 'react-router-dom';
+import { onLogout } from '../services/users';
 
 function Navbar() {
 
-  const { search, setSearch } = useUser();
+  const { search,  setSearch, dToken} = useUser();
+  const onLogoutFn = useAsyncFn(onLogout)
+
+  const navigate = useNavigate();
 
   function onSearchChange(e) {
     setSearch(e.target.value);
+  }
+  function onLogout(e) {
+    onLogoutFn.execute()
+    .then(ack => {
+      navigate("/login")
+    })
   }
 
   return (
@@ -39,11 +51,21 @@ function Navbar() {
           </Link>
         </div>
         <div className="div-profile">
-          <Link to="/login" className="login-btn-link">
-            <button className="sign-in-btn">
-              Sign In
-            </button>
-          </Link>
+          {
+            (dToken.userId) ? (
+              <Link className="section-link" to="/login">
+                <button className="sign-in-btn" onClick={onLogout}>
+                  Logout
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login" className="login-btn-link">
+                <button className="sign-in-btn">
+                  Sign In
+                </button>
+              </Link>
+            )
+          }
         </div>
       </div>
     </div>
