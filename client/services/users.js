@@ -19,3 +19,10 @@ export function getUser(){
     method: "GET",
   })
 }
+
+export function sendRequest({receiverId}){ 
+  return makeRequests(`/sendRequest`, {
+    method: "POST",
+    data: {receiverId},
+  })
+}

@@ -4,7 +4,7 @@ import FriendRequest from './FriendRequest'
 function Notification() {
   return (
     <div className="notification-div">
-      
+      <FriendRequest />
     </div>
   )
 }

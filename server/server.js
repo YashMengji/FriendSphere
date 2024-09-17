@@ -4,12 +4,13 @@ const userModel = require("./models/users");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt"); //For encryption of passwords
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser")
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
-// app.use(cookieParser());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Home page");
@@ -75,12 +76,37 @@ app.post("/login", async (req, res) => {
 
 app.get("/users", async (req, res) => {
   try {
-    const users = await userModel.find();
+    const users = await userModel.find().sort({ createdAt: -1 });
     return res.json(users);
   } catch (error) {
     return res.status(400).send(error.message);
   }
 });
+
+app.post("/sendRequest", isLoggedIn, async (req, res) => {
+  try {
+    const { receiverId } = req.body;
+    const senderId = req.signData.userId;
+
+    const sender = await userModel.findById(senderId);
+    sender.friendRequestsSent.push(receiverId);
+    await sender.save(); 
+
+    const receiver = await userModel.findById(receiverId);
+    receiver.friendRequestsReceived.push(senderId);
+    await receiver.save();
+    
+    res.send(true);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+});
+
+function isLoggedIn(req, res, next) {
+  const signData = jwt.verify(req.cookies.token, process.env.ENCRYPT_STRING);
+  req.signData = signData;
+  next();
+}
 
 
 app.listen(process.env.PORT || 3000, () => {
