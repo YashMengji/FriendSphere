@@ -17,3 +17,8 @@ body{
   display: flex;
   justify-content: center;
 }
+/* .app-div{
+  display: flex;
+  flex-direction: column;
+
+} */

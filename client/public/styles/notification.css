@@ -1,0 +1,13 @@
+.notification-div{
+  background-color: var(--back-light-color);
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 57px;
+}

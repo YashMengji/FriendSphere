@@ -20,7 +20,7 @@ function Register() {
     .then(user => {
       console.log(user)
       setFname("");
-      setLname("");
+      setLname(""); 
       setUsername("");
       setPassword("");
       setEmail("");

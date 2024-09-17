@@ -73,6 +73,14 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/users", async (req, res) => {
+  try {
+    const users = await userModel.find();
+    return res.json(users);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+});
 
 
 app.listen(process.env.PORT || 3000, () => {

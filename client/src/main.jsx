@@ -7,6 +7,7 @@ import Login from '../components/Login.jsx'
 import UserContext from '../contexts/UserContext.jsx'
 import Home from '../components/Home.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
+import Notification from '../components/Notification.jsx'
 
 const createRouter = createBrowserRouter(
   [
@@ -30,6 +31,14 @@ const createRouter = createBrowserRouter(
             </ProtectedRoute>
           ),
         },
+        {
+          path: "/notification", 
+          element: (
+            <ProtectedRoute>
+              <Notification/>
+            </ProtectedRoute>
+          )
+        }, 
       ]
     }
   ]

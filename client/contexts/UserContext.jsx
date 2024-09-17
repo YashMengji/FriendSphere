@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
+import { useAsync } from '../hooks/useAsync';
+import { getUser } from '../services/users';
 
 const userContext = createContext();
 
@@ -10,6 +12,13 @@ export function useUser(){
 function UserContext({ children }) {
 
   const [users, setUsers] = useState([])
+  const {loading, error, value} = useAsync(getUser);
+
+  useEffect(() => {
+    if(value){
+      setUsers(value);
+    }
+  }, [value]);
 
   function createLocalUser(user) {
     setUsers(prevUsers => [user, ...prevUsers]); 
@@ -19,7 +28,8 @@ function UserContext({ children }) {
   return (
     <userContext.Provider value={
       {
-        createLocalUser
+        createLocalUser,
+        users
       }
     }
     >

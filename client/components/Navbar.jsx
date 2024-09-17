@@ -26,7 +26,9 @@ function Navbar() {
       </div>
       <div className="div-nav-right">
         <div className="div-bell-icon">
-          <i className="fas fa-bell fa-xl"></i>
+          <Link className="section-link" to="/notification">
+            <i className="fas fa-bell fa-xl"></i>
+          </Link>
         </div>
         <div className="div-profile">
           <Link to="/login" className="login-btn-link">

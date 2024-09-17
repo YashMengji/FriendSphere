@@ -13,3 +13,9 @@ export function checkUser({username, password}){
     data: {username, password},
   })
 }
+
+export function getUser(){
+  return makeRequests(`/users`, {
+    method: "GET",
+  })
+}
