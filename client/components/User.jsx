@@ -2,11 +2,13 @@ import React from 'react'
 import { useAsyncFn } from '../hooks/useAsync';
 import { sendRequest } from '../services/users';
 import { useRef } from 'react';
+import { useUser } from '../contexts/UserContext';
 
 function User({user}) {
 
   const {_id, fname, lname, username} = user;
   const buttonRef = useRef(null);
+  const {userId} = useUser();
 
   const sendRequestFn = useAsyncFn(sendRequest)
 

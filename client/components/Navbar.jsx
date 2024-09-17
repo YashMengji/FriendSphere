@@ -1,9 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useUser } from '../contexts/UserContext'
 
 function Navbar() {
+
+  const { search, setSearch } = useUser();
+
+  function onSearchChange(e) {
+    setSearch(e.target.value);
+  }
+
   return (
- 
     <div className="nav-div">
       <div className="div-nav-left">
         <div className="div-nav-logo">
@@ -19,8 +27,8 @@ function Navbar() {
             <i className="fa-solid fa-house fa-xl"></i>
           </Link>
         </div>
-        <input className="search-bar" type="text" placeholder="Search"/>
-        <button className="search-icon-button">
+        <input className="search-bar" type="text" placeholder="Search" value={search} onChange={onSearchChange} />
+        <button className="search-icon-button" >
           <img className="search-icon" src="/images/search.svg" />
         </button>
       </div>

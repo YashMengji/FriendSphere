@@ -1,34 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import User from './User'
 import { useUser } from '../contexts/UserContext'
-import Cookies from 'js-cookie';
-import {jwtDecode} from 'jwt-decode';
+
 
 function Home() {
 
-  const {users} = useUser();
-  const [userId, setUserId] = useState(null);
-
+  const {users, dToken} = useUser();
+  const [friends, setFriends] = useState([]);
+  const [friendRequestsSent, setFriendRequestsSent] = useState([]);
   console.log(users);
+
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setUserId(decodedToken.userId); // Assuming the token contains a userId field
+    const currentUser = users.find(user => user._id === dToken.userId);
+    if (currentUser) {
+      setFriends(currentUser.friends || []);
+      setFriendRequestsSent(currentUser.friendRequestsSent || []);
     }
-  } ,[])
+  }, [users, dToken]); // Run this effect when users or dToken changes
+
 
   return (
     <div className="home-div">
       {
-        users.map(user => {
-          if(user._id == userId){
-            return null;
-          }
-          else{
-            return <User key={user._id} user={user} />
-          }
-        })
+        
+          users.map(user => {
+            if(user._id == dToken.userId || friends.includes(user._id) || friendRequestsSent.includes(user._id)){
+              return null;
+            }
+            else{
+              return <User key={user._id} user={user} />
+            }
+          })
+        
       }
     </div>
   )

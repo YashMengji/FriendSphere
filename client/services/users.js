@@ -26,3 +26,17 @@ export function sendRequest({receiverId}){
     data: {receiverId},
   })
 }
+
+export function acceptRequest({senderId}){ 
+  return makeRequests(`/acceptRequest`, {
+    method: "POST",
+    data: {senderId},
+  })
+}
+
+export function rejectRequest({senderId}){ 
+  return makeRequests(`/rejectRequest`, {
+    method: "POST",
+    data: {senderId},
+  })
+}

@@ -20,8 +20,10 @@ function App(){
 
 
   return (
-    <> 
-      <Navbar/>
+    <>   
+      <UserContext>
+        <Navbar/>
+      </UserContext>
       <UserContext>
         <Outlet/>
       </UserContext>

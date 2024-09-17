@@ -102,6 +102,48 @@ app.post("/sendRequest", isLoggedIn, async (req, res) => {
   }
 });
 
+app.post("/acceptRequest", isLoggedIn, async (req, res) => {
+  try {
+    const { senderId } = req.body;
+    const receiverId = req.signData.userId;
+
+    const receiver = await userModel.findById(receiverId);
+    const sender = await userModel.findById(senderId);
+
+    receiver.friends.push(senderId);
+    receiver.friendRequestsReceived = receiver.friendRequestsReceived.filter(id => id != senderId);
+    await receiver.save();
+
+    sender.friends.push(receiverId);
+    sender.friendRequestsSent = sender.friendRequestsSent.filter(id => id != receiverId);
+    await sender.save();
+
+    res.send(true);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+});
+
+app.post("/rejectRequest", isLoggedIn, async (req, res) => {
+  try {
+    const { senderId } = req.body;
+    const receiverId = req.signData.userId;
+
+    const receiver = await userModel.findById(receiverId);
+    const sender = await userModel.findById(senderId);
+
+    receiver.friendRequestsReceived = receiver.friendRequestsReceived.filter(id => id != senderId);
+    await receiver.save();
+
+    sender.friendRequestsSent = sender.friendRequestsSent.filter(id => id != receiverId);
+    await sender.save();
+
+    res.send(true);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+});
+
 function isLoggedIn(req, res, next) {
   const signData = jwt.verify(req.cookies.token, process.env.ENCRYPT_STRING);
   req.signData = signData;

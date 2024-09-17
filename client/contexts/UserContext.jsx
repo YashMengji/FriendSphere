@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
 import { useAsync } from '../hooks/useAsync';
 import { getUser } from '../services/users';
+import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
 
 const userContext = createContext();
 
@@ -12,7 +14,15 @@ export function useUser(){
 function UserContext({ children }) {
 
   const [users, setUsers] = useState([])
+  const [dToken, setDToken] = useState({});
   const {loading, error, value} = useAsync(getUser);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      setDToken(jwtDecode(token));
+    }
+  } ,[])
 
   useEffect(() => {
     if(value){
@@ -29,7 +39,8 @@ function UserContext({ children }) {
     <userContext.Provider value={
       {
         createLocalUser,
-        users
+        users,
+        dToken,
       }
     }
     >
