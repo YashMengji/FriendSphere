@@ -144,9 +144,13 @@ app.post("/rejectRequest", isLoggedIn, async (req, res) => {
   }
 });
 
-app.get("/logout", (req, res) => {
-  res.clearCookie("token");
-  res.send(true);
+app.post("/logout", (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.send(true);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
 });
 
 function isLoggedIn(req, res, next) {
@@ -154,6 +158,26 @@ function isLoggedIn(req, res, next) {
   req.signData = signData;
   next();
 }
+
+app.post("/unFriend", isLoggedIn, async (req, res) => {
+  try {
+    const { receiverId } = req.body;
+    const senderId = req.signData.userId;
+
+    const sender = await userModel.findById(senderId);
+    const receiver = await userModel.findById(receiverId);
+    
+    sender.friends = sender.friends.filter(id => id != receiverId);
+    await sender.save();
+
+    receiver.friends = receiver.friends.filter(id => id != senderId);
+    await receiver.save();
+
+    res.send(true);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+})
 
 
 app.listen(process.env.PORT || 3000, () => {

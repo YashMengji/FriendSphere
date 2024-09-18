@@ -8,7 +8,7 @@ import { onLogout } from '../services/users';
 
 function Navbar() {
 
-  const { search,  setSearch, dToken} = useUser();
+  const { search,  setSearch, dToken, showLogoutBtn, setShowLogoutBtn } = useUser();
   const onLogoutFn = useAsyncFn(onLogout)
 
   const navigate = useNavigate();
@@ -16,9 +16,10 @@ function Navbar() {
   function onSearchChange(e) {
     setSearch(e.target.value);
   }
-  function onLogout(e) {
+  function onLogoutUser(e) {
     onLogoutFn.execute()
-    .then(ack => {
+    .then(() => {
+      setShowLogoutBtn(false);
       navigate("/login")
     })
   }
@@ -52,12 +53,12 @@ function Navbar() {
         </div>
         <div className="div-profile">
           {
-            (dToken.userId) ? (
-              <Link className="section-link" to="/login">
-                <button className="sign-in-btn" onClick={onLogout}>
+            ( showLogoutBtn) ? (
+              // <Link className="section-link" to="/login">
+                <button className="sign-in-btn" onClick={onLogoutUser}>
                   Logout
                 </button>
-              </Link>
+              // </Link>
             ) : (
               <Link to="/login" className="login-btn-link">
                 <button className="sign-in-btn">

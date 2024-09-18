@@ -43,6 +43,13 @@ export function rejectRequest({senderId}){
 
 export function onLogout(){
   return makeRequests(`/logout`, {
-    method: "GET",
+    method: "POST",
+  })
+}
+
+export function unFriend({receiverId}){
+  return makeRequests(`/unFriend`, {
+    method: "POST",
+    data: {receiverId},
   })
 }

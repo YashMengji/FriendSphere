@@ -9,6 +9,7 @@ function Home() {
   const [friends, setFriends] = useState([]);
   const [searchUsers, setSearchUsers] = useState([]);
   const [friendRequestsSent, setFriendRequestsSent] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); 
   console.log(users);
 
   useEffect(() => {
@@ -21,8 +22,8 @@ function Home() {
 
   useEffect(() => {
     if(search){
-      const searchResults = users.filter(user => user.fname.toLowerCase().includes(search.toLowerCase()) || user.lname.toLowerCase().includes(search.toLowerCase()) || user.username.toLowerCase().includes(search.toLowerCase()));
-      setUsers(searchResults);
+      setSearchResults( users.filter(user => user.fname.toLowerCase().includes(search.toLowerCase()) || user.lname.toLowerCase().includes(search.toLowerCase()) || user.username.toLowerCase().includes(search.toLowerCase())) );
+      // setUsers(searchResults);
     }
   }, [search]);
 
@@ -32,16 +33,31 @@ function Home() {
   return (
     <div className="home-div">
       {
-        
-          users.map(user => {
-            if(user._id == dToken.userId || friends.includes(user._id) || friendRequestsSent.includes(user._id)){
-              return null;
-            }
-            else{
-              return <User key={user._id} user={user} />
-            }
-          })
-        
+          (search != "") ? (
+            searchResults.map(user => {
+              if(friends.includes(user._id)){
+                return <User key={user._id} user={user} isFriend />
+              }
+              else if(friendRequestsSent.includes(user._id)){
+                return <User key={user._id} user={user} isRequestSent />
+              }
+              else if(user._id == dToken.userId){
+                return null;
+              }
+              else{
+                <User key={user._id} user={user} />
+              }
+            })
+          ) : (
+            users.map(user => {
+              if(user._id == dToken.userId || friends.includes(user._id) || friendRequestsSent.includes(user._id)){
+                return null;
+              }
+              else{
+                return <User key={user._id} user={user} />
+              }
+            })
+          )
       }
     </div>
   )

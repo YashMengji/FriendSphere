@@ -17,13 +17,14 @@ function UserContext({ children }) {
   const [dToken, setDToken] = useState({});
   const [search, setSearch] = useState('');
   const {loading, error, value} = useAsync(getUser);
+  const [showLogoutBtn, setShowLogoutBtn] = useState(Cookies.get('token') ? true : false);
 
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
       setDToken(jwtDecode(token));
     }
-  } ,[])
+  },[])
 
   useEffect(() => {
     if(value){
@@ -45,12 +46,14 @@ function UserContext({ children }) {
         search,
         setSearch,
         setUsers,
+        showLogoutBtn,
+        setShowLogoutBtn,
       }
     }
     >
       {
-        // loading ? (<h1>Loading...</h1>) :
-        // error ? (<h1>Error</h1>) :
+        loading ? (<h1>Loading...</h1>) :
+        error ? (<h1>Error</h1>) :
         children
       }
     </userContext.Provider>

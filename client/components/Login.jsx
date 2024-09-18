@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useAsyncFn } from '../hooks/useAsync';
 import { checkUser } from '../services/users';
 import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate hook
-
+import { useUser } from '../contexts/UserContext';
 
 function Login() {
 
@@ -10,6 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const checkUserFn = useAsyncFn(checkUser);
+  const {setShowLogoutBtn} = useUser();
   const navigate = useNavigate(); // Initialize navigate
 
   function onUserLogin(e){
@@ -18,9 +19,12 @@ function Login() {
     .then(user => {
       setUsername("");
       setPassword("");
+      setShowLogoutBtn(true);
       if (user) {
         // Navigate to /home on successful login
         navigate("/home");
+        // Refresh the page
+        window.location.reload();
       }
     })
   }
