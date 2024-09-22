@@ -7,7 +7,7 @@ import {jwtDecode} from 'jwt-decode';
 
 const userContext = createContext();
 
-export function useUser(){
+export function useUser() {
   return useContext(userContext)
 }
 

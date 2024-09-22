@@ -7,10 +7,11 @@
 .home-div{
   background-color: var(--back-light-color);
   width: 50%;
+  min-height: 100vh;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   gap: 15px;
   padding-top: 15px;

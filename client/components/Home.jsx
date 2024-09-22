@@ -23,7 +23,7 @@ function Home() {
   useEffect(() => {
     if(search){
       setSearchResults( users.filter(user => user.fname.toLowerCase().includes(search.toLowerCase()) || user.lname.toLowerCase().includes(search.toLowerCase()) || user.username.toLowerCase().includes(search.toLowerCase())) );
-      // setUsers(searchResults);
+      // console.log(searchResults);
     }
   }, [search]);
 
@@ -34,6 +34,7 @@ function Home() {
     <div className="home-div">
       {
           (search != "") ? (
+            console.log(searchResults),
             searchResults.map(user => {
               if(friends.includes(user._id)){
                 return <User key={user._id} user={user} isFriend />
@@ -45,12 +46,18 @@ function Home() {
                 return null;
               }
               else{
-                <User key={user._id} user={user} />
+                return <User key={user._id} user={user} />
               }
             })
           ) : (
             users.map(user => {
-              if(user._id == dToken.userId || friends.includes(user._id) || friendRequestsSent.includes(user._id)){
+              if(friends.includes(user._id)){
+                return <User key={user._id} user={user} isFriend />
+              }
+              else if(friendRequestsSent.includes(user._id)){
+                return <User key={user._id} user={user} isRequestSent />
+              }
+              else if(user._id == dToken.userId){
                 return null;
               }
               else{
