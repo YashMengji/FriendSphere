@@ -30,7 +30,7 @@ app.post("/register", async (req, res) => {
       await userModel.findOne({email})
     ) {
       console.log("username exists!!")
-      return res.status(400).json({ message: "Email already registered" });``
+      return res.status(400).json({ message: "Email already registered" });` `
     } 
 
     // Hash the password
