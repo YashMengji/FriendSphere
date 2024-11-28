@@ -13,10 +13,14 @@ function Home() {
   console.log(users);
 
   useEffect(() => {
-    const currentUser = users.find(user => user._id === dToken.userId);
-    if (currentUser) {
-      setFriends(currentUser.friends || []);
-      setFriendRequestsSent(currentUser.friendRequestsSent || []);
+    if(Array.isArray(users)){
+      const currentUser = users.find(user => user._id === dToken.userId);
+      if (currentUser) {
+        setFriends(currentUser.friends || []);
+        setFriendRequestsSent(currentUser.friendRequestsSent || []);
+      }
+    } else {
+      console.error("Expected 'users' to be an array, but got:", users);
     }
   }, [users, dToken]); // Run this effect when users or dToken changes
 
@@ -35,35 +39,40 @@ function Home() {
       {
           (search != "") ? (
             console.log(searchResults),
-            searchResults.map(user => {
-              if(friends.includes(user._id)){
-                return <User key={user._id} user={user} isFriend />
-              }
-              else if(friendRequestsSent.includes(user._id)){
-                return <User key={user._id} user={user} isRequestSent />
-              }
-              else if(user._id == dToken.userId){
-                return null;
-              }
-              else{
-                return <User key={user._id} user={user} />
-              }
-            })
+            Array.isArray(searchResults) ? (
+              searchResults.map(user => {
+                if (friends.includes(user._id)) {
+                  return <User key={user._id} user={user} isFriend />;
+                } else if (friendRequestsSent.includes(user._id)) {
+                  return <User key={user._id} user={user} isRequestSent />;
+                } else if (user._id === dToken.userId) {
+                  return null;
+                } else {
+                  return <User key={user._id} user={user} />;
+                }
+              })
+            ) : (
+              <p>No search results found.</p>
+            )
           ) : (
-            users.map(user => {
-              if(friends.includes(user._id)){
-                return <User key={user._id} user={user} isFriend />
-              }
-              else if(friendRequestsSent.includes(user._id)){
-                return <User key={user._id} user={user} isRequestSent />
-              }
-              else if(user._id == dToken.userId){
-                return null;
-              }
-              else{
-                return <User key={user._id} user={user} />
-              }
-            })
+            (Array.isArray(users)) ? (
+              users.map(user => {
+                if(friends.includes(user._id)){
+                  return <User key={user._id} user={user} isFriend />
+                }
+                else if(friendRequestsSent.includes(user._id)){
+                  return <User key={user._id} user={user} isRequestSent />
+                }
+                else if(user._id == dToken.userId){
+                  return null;
+                }
+                else{
+                  return <User key={user._id} user={user} />
+                }
+              })
+            ) : (
+              <p>No search results found.</p>
+            )
           )
       }
     </div>

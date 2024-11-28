@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
     type: String, 
     required: true 
   },
-  lname: {
+  lname: { 
     type: String, 
     required: true 
   },

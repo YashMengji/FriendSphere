@@ -8,9 +8,13 @@ function Notification() {
 
   // Use useEffect to update state only when users or dToken change
   useEffect(() => {
-    const currentUser = users.find(user => user._id === dToken.userId);
-    if (currentUser) {
-      setFriendRequestsReceived(currentUser.friendRequestsReceived || []);
+    if (Array.isArray(users)) {
+      const currentUser = users.find(user => user._id === dToken.userId);
+      if (currentUser) {
+        setFriendRequestsReceived(currentUser.friendRequestsReceived || []);
+      }
+    } else {
+      console.error("Expected 'users' to be an array, but got:", users);
     }
   }, [users, dToken]); // Run this effect when users or dToken changes
 

@@ -7,7 +7,7 @@ import { useRef } from 'react';
 function FriendRequest({user}) {
   const {_id, fname, lname, username} = user;
   const acceptButtonRef = useRef(null);
-  const rejectButtonRef = useRef(null);
+  const rejectButtonRef = useRef(null); 
 
   const acceptRequestFn = useAsyncFn(acceptRequest);
   const rejectRequestFn = useAsyncFn(rejectRequest);
